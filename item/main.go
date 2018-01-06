@@ -17,14 +17,14 @@ func main() {
 
 	itemsManager := &models.ItemsManager{
 		&persistence.MongoDbClient{
-			DbUrl:      "127.0.0.1",
+			DbUrl:      "mongo",
 			Db:         "test",
 			Collection: "item",
 		},
 	}
 	reviewsManager := &models.ReviewsManager{
 		&persistence.MongoDbClient{
-			DbUrl:      "127.0.0.1",
+			DbUrl:      "mongo",
 			Db:         "test",
 			Collection: "reviews",
 		},
