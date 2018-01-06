@@ -36,26 +36,25 @@ func main() {
 			Collection: "pendingorders",
 		},
 	}
+	activeOrdersManager := &models.ActiveOrdersManager{
+		&persistence.MongoDbClient{
+			DbUrl:      "127.0.0.1",
+			Db:         "orders",
+			Collection: "activeorders",
+		},
+	}
 
-	if err := buyingOptionsManager.Open(); err != nil {
-		log.Fatalf("main: %v", err)
-	}
-	if err := pendingOrdersManager.Open(); err != nil {
-		log.Fatalf("main: %v", err)
-	}
-
-	if err := buyingOptionsManager.Seed(); err != nil {
-		log.Fatalf("main: %v", err)
-	}
-	if err := pendingOrdersManager.Seed(); err != nil {
-		log.Fatalf("main: %v", err)
-	}
+	OpenAndSeed(buyingOptionsManager)
+	OpenAndSeed(pendingOrdersManager)
+	OpenAndSeed(activeOrdersManager)
 
 	defer buyingOptionsManager.Close()
 	defer pendingOrdersManager.Close()
+	defer activeOrdersManager.Close()
 
 	persistence.Global.AddModel(&models.BuyingOption{}, buyingOptionsManager)
 	persistence.Global.AddModel(&models.PendingOrder{}, pendingOrdersManager)
+	persistence.Global.AddModel(&models.ActiveOrder{}, activeOrdersManager)
 
 	var routes []common.Route
 
@@ -73,6 +72,22 @@ func main() {
 			func() interface{} { return &[]models.PendingOrder{} },
 		})...,
 	)
+	routes = append(
+		routes,
+		common.CreateRESTRoutes("activeorder", adapters.MapToModelAdapter{
+			func() persistence.IModel { return &models.ActiveOrder{} },
+			func() interface{} { return &[]models.ActiveOrder{} },
+		})...,
+	)
 
 	common.StartWebServer("4242", routes)
+}
+
+func OpenAndSeed(ipm persistence.IPersistenceManager) {
+	if err := ipm.Open(); err != nil {
+		log.Fatalf("main: %v", err)
+	}
+	if err := ipm.Seed(); err != nil {
+		log.Fatalf("main: %v", err)
+	}
 }
