@@ -13,7 +13,7 @@ func ApproveOrder(userId string, orderId string, amount int) error {
 	if err != nil {
 		return fmt.Errorf("POST http://accountservice:60001/ params = %v: %v", params, err)
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != 200 && resp.StatusCode != 201 {
 		return errors.New(resp.Status)
 	}
 	return nil
