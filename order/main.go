@@ -24,21 +24,21 @@ func main() {
 	}*/
 	buyingOptionsManager := &models.BuyingOptionsManager{
 		&persistence.MongoDbClient{
-			DbUrl:      "127.0.0.1",
+			DbUrl:      "mongo",
 			Db:         "orders",
 			Collection: "buyingoptions",
 		},
 	}
 	pendingOrdersManager := &models.PendingOrdersManager{
 		&persistence.MongoDbClient{
-			DbUrl:      "127.0.0.1",
+			DbUrl:      "mongo",
 			Db:         "orders",
 			Collection: "pendingorders",
 		},
 	}
 	activeOrdersManager := &models.ActiveOrdersManager{
 		&persistence.MongoDbClient{
-			DbUrl:      "127.0.0.1",
+			DbUrl:      "mongo",
 			Db:         "orders",
 			Collection: "activeorders",
 		},
