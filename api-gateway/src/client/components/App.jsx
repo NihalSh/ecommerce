@@ -14,6 +14,7 @@ import {
   Redirect,
   Route
 } from 'react-router-dom';
+import HomePage from './Home';
 import Login from './Login';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
@@ -133,10 +134,12 @@ export default class App extends React.Component {
           </AppBar>
           {this.state.justSignedIn
             ? (() => {
+                console.log("redirected", this.state.justSignedIn);
                 return <Redirect to="/" />;
               })()
-            : <Route exact path="/" component={null} />
+            : null
           }
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginWrapper} />
           <Route exact path="/products" component={ProductPage} />
           <Route exact path="/account" component={null} />

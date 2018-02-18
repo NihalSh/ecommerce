@@ -12,6 +12,12 @@ app.post('/api/auth', (req, res) => {
   ).pipe(res);
 });
 
+app.get('/api/products', (req, res) => {
+  req.pipe(
+    request[req.method.toLowerCase()]('http://127.0.0.1:6767/items')
+  ).pipe(res);
+})
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
