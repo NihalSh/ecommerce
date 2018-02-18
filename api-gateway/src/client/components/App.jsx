@@ -13,13 +13,14 @@ import {
   Route
 } from 'react-router-dom';
 import Login from './Login';
+import ProductPage from './ProductPage';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isSignedIn: false,
-    }
+    };
     this.handleSignIn = this.handleSignIn.bind(this);
   }
 
@@ -81,7 +82,7 @@ export default class App extends React.Component {
           </AppBar>
           <Route exact path="/" component={null} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/products" component={null} />
+          <Route exact path="/products" component={ProductPage} />
           <Route exact path="/account" component={null} />
         </div>
       </Router>
