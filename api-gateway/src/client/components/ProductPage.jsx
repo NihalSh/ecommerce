@@ -6,7 +6,7 @@ import { CircularProgress } from 'material-ui/Progress';
 
 const ProductPage = (props) => {
     return (
-	<DataInjector url="productsUrl" loadingIndicator={CircularProgress}>
+	<DataInjector url="products" loadingIndicator={CircularProgress}>
 	  {(data) => <GridListView data={data} itemClass={MediaCard} detail_url="products" />} 
 	</DataInjector>
     );

@@ -27,7 +27,7 @@ class DataInjector extends React.Component {
 
     fetchData(url) {
 	// TODO: replace with api call
-	if (this.props.url == 'productsUrl') {
+	if (this.props.url == 'products') {
 	    this.setState({
 		data: [
 		    {
