@@ -15,6 +15,8 @@ import {
   Route
 } from 'react-router-dom';
 import Login from './Login';
+import ProductPage from './ProductPage';
+import ProductDetailPage from './ProductDetailPage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ export default class App extends React.Component {
       snackbarMessage: '',
       justSignedIn: false,
       token: '',
-    }
+    };
     this.handleSignIn = this.handleSignIn.bind(this);
     console.log("called");
   }
@@ -136,8 +138,9 @@ export default class App extends React.Component {
             : <Route exact path="/" component={null} />
           }
           <Route exact path="/login" component={LoginWrapper} />
-          <Route exact path="/products" component={null} />
+          <Route exact path="/products" component={ProductPage} />
           <Route exact path="/account" component={null} />
+          <Route exact path="/products/:id" component={ProductDetailPage} />
           <Snackbar
             autoHideDuration={3000}
             open={this.state.showSnackbar}
