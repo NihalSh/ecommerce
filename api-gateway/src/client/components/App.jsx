@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import Login from './Login';
 import ProductPage from './ProductPage';
+import ProductDetailPage from './ProductDetailPage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -84,6 +85,7 @@ export default class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/products" component={ProductPage} />
           <Route exact path="/account" component={null} />
+          <Route exact path="/products/:id" component={ProductDetailPage} />
         </div>
       </Router>
     );
