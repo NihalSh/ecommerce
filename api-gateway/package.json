@@ -1,0 +1,29 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build ./src/client/index.jsx --out-dir ./server/public",
+    "parcel": "parcel ./src/client/index.jsx",
+    "start": "node ./src/server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "parcel watch ./src/client/index.jsx --out-dir ./src/server/public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "material-ui": "^1.0.0-beta.33",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "parcel-bundler": "^1.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
+  }
+}
