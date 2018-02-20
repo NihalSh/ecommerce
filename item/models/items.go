@@ -10,6 +10,8 @@ import (
 type Item struct {
 	Id   bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name,omitempty"`
+        Description string        `json:"description" bson:"description,omitempty"`
+        Image       string        `json:"image" bson:"image,omitempty"`
 }
 
 func (i *Item) ToString() string {
