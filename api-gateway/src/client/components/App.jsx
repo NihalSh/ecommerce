@@ -68,7 +68,7 @@ export default class App extends React.Component {
         snackbarMessage: "Signin Failed",
         justSignedIn: false,
       });
-      console.error(err)
+	console.error(err);
     });
   }
 
