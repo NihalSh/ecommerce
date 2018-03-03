@@ -1,6 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'whatwg-fetch';
-import App from './components/App';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import configureStore from './configureStore';
+import App from './components/App';
+ 
+ 
+const initialStoreData = {};
+const store = configureStore(initialStoreData);
+
+
+const appWithStore = (store) => (
+    <Provider store={store}>
+      <App />
+    </Provider> 
+);
+    
+
+ReactDOM.render(appWithStore(store), document.getElementById('app'));

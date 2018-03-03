@@ -8,6 +8,7 @@ import Home from 'material-ui-icons/Home';
 import PermIdentity from 'material-ui-icons/PermIdentity';
 import ShoppingBasket from 'material-ui-icons/ShoppingBasket';
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Link,
@@ -18,12 +19,12 @@ import HomePage from './Home';
 import Login from './Login';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
+import { signIn } from '../actionCreators';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
       showSnackbar: false,
       snackbarMessage: '',
       justSignedIn: false,
@@ -55,7 +56,6 @@ export default class App extends React.Component {
     }).then((data) => {
       console.log(data);
       this.setState({
-        isSignedIn: true,
         showSnackbar: true,
         snackbarMessage: "Signin Successful",
         justSignedIn: true,
@@ -63,7 +63,6 @@ export default class App extends React.Component {
       });
     }).catch((err) => {
       this.setState({
-        isSignedIn: false,
         showSnackbar: true,
         snackbarMessage: "Signin Failed",
         justSignedIn: false,
@@ -83,8 +82,8 @@ export default class App extends React.Component {
   render() {
     const LoginWrapper = () => (
       <Login
-        handleOnSubmit={this.handleSignIn}
-        isSignedIn={this.state.isSignedIn}
+        handleOnSubmit={this.props.handleSignIn}
+        isSignedIn={this.props.isSignedIn}
       />
     );
 
@@ -112,7 +111,7 @@ export default class App extends React.Component {
                 <ShoppingBasket />
                 Products
               </Button>
-              { this.state.isSignedIn
+              { this.props.isSignedIn
                 ? <Button
                     color="inherit"
                     component={Link}
@@ -157,3 +156,10 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App = connect((state) => ({
+    isSignedIn: state.isSignedIn,
+    justSignedIn: state.justSignedIn,
+}), (dispatch) => ({  
+    handleSignIn: (username, password) => dispatch(signIn(username, password)),
+}))(App); 
