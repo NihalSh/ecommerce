@@ -158,8 +158,7 @@ class App extends React.Component {
 }
 
 export default App = connect((state) => ({
-    isSignedIn: state.isSignedIn,
-    justSignedIn: state.justSignedIn,
+    isSignedIn: state.user.isSignedIn,
 }), (dispatch) => ({  
     handleSignIn: (username, password) => dispatch(signIn(username, password)),
 }))(App); 
