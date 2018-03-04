@@ -19,6 +19,48 @@ import Login from './Login';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
 
+const NavBar = (props) => (
+  <Toolbar>
+    <Typography variant="title" color="inherit">
+      E-commerce
+    </Typography>
+    <Button
+      color="inherit"
+      component={Link}
+      to="/"
+    >
+      <Home />
+      Home
+    </Button>
+    <Button
+      color="inherit"
+      component={Link}
+      to="/products"
+    >
+      <ShoppingBasket />
+      Products
+    </Button>
+    { props.isSignedIn
+      ? <Button
+          color="inherit"
+          component={Link}
+          to="/account"
+        >
+          <Settings />
+          Account
+        </Button>
+      : <Button
+          color="inherit"
+          component={Link}
+          to="/login"
+        >
+          <PermIdentity />
+          Login
+        </Button>
+    }
+  </Toolbar>
+);
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -92,45 +134,7 @@ export default class App extends React.Component {
       <Router>
         <div>
           <AppBar position="static">
-            <Toolbar>
-              <Typography variant="title" color="inherit">
-                E-commerce
-              </Typography>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/"
-              >
-                <Home />
-                Home
-              </Button>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/products"
-              >
-                <ShoppingBasket />
-                Products
-              </Button>
-              { this.state.isSignedIn
-                ? <Button
-                    color="inherit"
-                    component={Link}
-                    to="/account"
-                  >
-                    <Settings />
-                    Account
-                  </Button>
-                : <Button
-                    color="inherit"
-                    component={Link}
-                    to="/login"
-                  >
-                    <PermIdentity />
-                    Login
-                  </Button>
-              }
-            </Toolbar>
+            <NavBar isSignedIn={this.state.isSignedIn} />
           </AppBar>
           {this.state.justSignedIn
             ? (() => {
