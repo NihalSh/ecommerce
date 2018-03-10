@@ -32,7 +32,7 @@ export default class App extends React.Component {
     this.handleSignIn = this.handleSignIn.bind(this);
     console.log("called");
   }
-
+  
   /**
    * 
    * @param {string} username 
@@ -43,116 +43,116 @@ export default class App extends React.Component {
     fetch('api/auth/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+	'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `userid=${username}&password=${password}`,
     }).then((response) => {
       console.log(response);
       if (response.ok) {
-        return response.json();
+	return response.json();
       }
       throw new Error('authentication failed');
     }).then((data) => {
       console.log(data);
       this.setState({
-        isSignedIn: true,
-        showSnackbar: true,
-        snackbarMessage: "Signin Successful",
-        justSignedIn: true,
-        token: data.token,
+	isSignedIn: true,
+	showSnackbar: true,
+	snackbarMessage: "Signin Successful",
+	justSignedIn: true,
+	token: data.token,
       });
     }).catch((err) => {
       this.setState({
-        isSignedIn: false,
-        showSnackbar: true,
-        snackbarMessage: "Signin Failed",
-        justSignedIn: false,
+	isSignedIn: false,
+	showSnackbar: true,
+	snackbarMessage: "Signin Failed",
+	justSignedIn: false,
       });
       console.error(err)
     });
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
     if (prevState.justSignedIn) {
       this.setState(
-        Object.assign({}, prevState, {justSignedIn: false})
+	Object.assign({}, prevState, {justSignedIn: false})
       );
     }
   }
-
+  
   render() {
     const LoginWrapper = () => (
       <Login
-        handleOnSubmit={this.handleSignIn}
-        isSignedIn={this.state.isSignedIn}
-      />
+	handleOnSubmit={this.handleSignIn}
+	isSignedIn={this.state.isSignedIn}
+	/>
     );
-
+    
     return (
       <Router>
-        <div>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="title" color="inherit">
-                E-commerce
-              </Typography>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/"
-              >
-                <Home />
-                Home
-              </Button>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/products"
-              >
-                <ShoppingBasket />
-                Products
-              </Button>
-              { this.state.isSignedIn
-                ? <Button
-                    color="inherit"
-                    component={Link}
-                    to="/account"
-                  >
-                    <Settings />
-                    Account
-                  </Button>
-                : <Button
-                    color="inherit"
-                    component={Link}
-                    to="/login"
-                  >
-                    <PermIdentity />
-                    Login
-                  </Button>
-              }
-            </Toolbar>
-          </AppBar>
-          {this.state.justSignedIn
-            ? (() => {
-                console.log("redirected", this.state.justSignedIn);
-                return <Redirect to="/" />;
-              })()
-            : null
-          }
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/login" component={LoginWrapper} />
-          <Route exact path="/products" component={ProductPage} />
-          <Route exact path="/account" component={null} />
-          <Route exact path="/products/:id" component={ProductDetailPage} />
-          <Snackbar
-            autoHideDuration={3000}
-            open={this.state.showSnackbar}
-            message={this.state.snackbarMessage}
-            onClose={() => (this.setState(
-              Object.assign({}, this.state, {showSnackbar: false})))
-            }
-          />
-        </div>
+	<div>
+	  <AppBar position="static">
+	    <Toolbar>
+	      <Typography variant="title" color="inherit">
+		E-commerce
+	      </Typography>
+	      <Button
+		color="inherit"
+		component={Link}
+		to="/"
+		>
+		<Home />
+		Home
+	      </Button>
+	      <Button
+		color="inherit"
+		component={Link}
+		to="/products"
+		>
+		<ShoppingBasket />
+		Products
+	      </Button>
+	      { this.state.isSignedIn
+		? <Button
+		      color="inherit"
+		      component={Link}
+		      to="/account"
+		      >
+		  <Settings />
+		    Account
+		</Button>
+		: <Button
+		      color="inherit"
+		      component={Link}
+		      to="/login"
+		      >
+		  <PermIdentity />
+		    Login
+		</Button>
+	      }
+	    </Toolbar>
+	  </AppBar>
+	  {this.state.justSignedIn
+	    ? (() => {
+	      console.log("redirected", this.state.justSignedIn);
+	      return <Redirect to="/" />;
+	    })()
+	    : null
+	  }
+	  <Route exact path="/" component={HomePage} />
+	  <Route exact path="/login" component={LoginWrapper} />
+	  <Route exact path="/products" component={ProductPage} />
+	  <Route exact path="/account" component={null} />
+	  <Route exact path="/products/:id" component={ProductDetailPage} />
+	  <Snackbar
+	    autoHideDuration={3000}
+	    open={this.state.showSnackbar}
+	    message={this.state.snackbarMessage}
+	    onClose={() => (this.setState(
+	      Object.assign({}, this.state, {showSnackbar: false})))
+	    }
+	    />
+	</div>
       </Router>
     );
   }
