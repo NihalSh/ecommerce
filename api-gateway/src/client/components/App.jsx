@@ -1,13 +1,6 @@
-import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/Button';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Snackbar from 'material-ui/Snackbar';
-import Settings from 'material-ui-icons/Settings';
-import Home from 'material-ui-icons/Home';
-import PermIdentity from 'material-ui-icons/PermIdentity';
-import ShoppingBasket from 'material-ui-icons/ShoppingBasket';
 import React from 'react';
+import AppBar from 'material-ui/AppBar';
+import Snackbar from 'material-ui/Snackbar';
 import {
   BrowserRouter as Router,
   Link,
@@ -16,50 +9,9 @@ import {
 } from 'react-router-dom';
 import HomePage from './Home';
 import Login from './Login';
+import NavBar from './NavBar';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
-
-const NavBar = (props) => (
-  <Toolbar>
-    <Typography variant="title" color="inherit">
-      E-commerce
-    </Typography>
-    <Button
-      color="inherit"
-      component={Link}
-      to="/"
-    >
-      <Home />
-      Home
-    </Button>
-    <Button
-      color="inherit"
-      component={Link}
-      to="/products"
-    >
-      <ShoppingBasket />
-      Products
-    </Button>
-    { props.isSignedIn
-      ? <Button
-          color="inherit"
-          component={Link}
-          to="/account"
-        >
-          <Settings />
-          Account
-        </Button>
-      : <Button
-          color="inherit"
-          component={Link}
-          to="/login"
-        >
-          <PermIdentity />
-          Login
-        </Button>
-    }
-  </Toolbar>
-);
 
 export default class App extends React.Component {
   constructor(props) {
