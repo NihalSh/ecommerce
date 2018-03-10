@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { hot } from 'react-hot-loader';
 import 'whatwg-fetch';
 import App from './components/App';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const AppWrapper = hot(module)(App);
+
+ReactDOM.render(<AppWrapper />, document.getElementById('app'));
