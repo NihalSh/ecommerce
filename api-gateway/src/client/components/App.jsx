@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import AppBar from 'material-ui/AppBar';
 import Snackbar from 'material-ui/Snackbar';
 import {
@@ -13,7 +14,7 @@ import NavBar from './NavBar';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,6 +72,7 @@ export default class App extends React.Component {
       this.setState(
         Object.assign({}, prevState, {justSignedIn: false})
       );
+
     }
   }
 
@@ -113,3 +115,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default hot(module)(App);
