@@ -9,7 +9,7 @@ import {
   Route
 } from 'react-router-dom';
 import HomePage from './Home';
-import Login from './Login';
+import Login from '../containers/Login';
 import NavBar from './NavBar';
 import ProductPage from './ProductPage';
 import ProductDetailPage from './ProductDetailPage';
@@ -76,13 +76,6 @@ class App extends React.Component {
   }
 
   render() {
-    const LoginWrapper = () => (
-      <Login
-        handleOnSubmit={this.handleSignIn}
-        isSignedIn={this.state.isSignedIn}
-      />
-    );
-
     return (
       <Router>
         <div>
@@ -97,7 +90,7 @@ class App extends React.Component {
             : null
           }
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/login" component={LoginWrapper} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/products" component={ProductPage} />
           <Route exact path="/account" component={null} />
           <Route exact path="/products/:id" component={ProductDetailPage} />

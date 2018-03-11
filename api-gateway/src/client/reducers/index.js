@@ -1,9 +1,6 @@
-const reducer = (previousState = {}, action) => {
-  switch (action.type) {
-    default:
-      return previousState;
-      break;
-  }
-};
+import { combineReducers } from 'redux';
+import user from './user';
 
-export default reducer;
+export default combineReducers({
+  user,
+});
