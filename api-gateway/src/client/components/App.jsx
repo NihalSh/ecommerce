@@ -72,7 +72,6 @@ class App extends React.Component {
       this.setState(
         Object.assign({}, prevState, {justSignedIn: false})
       );
-
     }
   }
 
