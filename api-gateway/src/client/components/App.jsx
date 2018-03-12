@@ -11,7 +11,7 @@ import {
 import HomePage from './Home';
 import Login from '../containers/Login';
 import NavBar from './NavBar';
-import ProductPage from './ProductPage';
+import Products from '../containers/Products';
 import ProductDetailPage from './ProductDetailPage';
 
 class App extends React.Component {
@@ -91,7 +91,7 @@ class App extends React.Component {
           }
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/products" component={ProductPage} />
+          <Route exact path="/products" component={Products} />
           <Route exact path="/account" component={null} />
           <Route exact path="/products/:id" component={ProductDetailPage} />
           <Snackbar

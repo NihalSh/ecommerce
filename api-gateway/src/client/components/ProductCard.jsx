@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 const styles = {
   card: {
-    maxWidth: 250,
+		maxWidth: 250,
+		margin: 'auto',
   },
   media: {
     height: 250,
