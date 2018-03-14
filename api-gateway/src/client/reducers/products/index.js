@@ -1,22 +1,20 @@
 import actionTypes from '../../actions/types';
 
-const reducer = (previousState = {}, action) => {
+const reducer = (previousState = { data: [] }, action) => {
   switch (action.type) {
-    case actionTypes.LOGIN:
+    case actionTypes.GET_PRODUCTS:
       if (action.error === true) {
         return {
-          ...previousState,
+          data: [],
           error: true,
           errorMessage: action.payload,
         };
       }
       return {
-        ...previousState,
-        ...action.payload,
+        data: action.payload,
         error: false,
         errorMessage: null,
       };
-
     default:
       return previousState;
   }
