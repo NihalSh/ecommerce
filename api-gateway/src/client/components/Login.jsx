@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import { FormControl } from 'material-ui/Form';
-import Input, {InputLabel} from 'material-ui/Input'
-import Snackbar from 'material-ui/Snackbar';
-import { Link, Redirect, Route } from 'react-router-dom';
+import Input, { InputLabel } from 'material-ui/Input';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -24,7 +23,8 @@ export default class Login extends React.Component {
       case 'password':
         this.setState({ password: event.target.value });
         break;
-    };
+      default: break;
+    }
   }
 
   handleOnSubmit() {
@@ -43,7 +43,13 @@ export default class Login extends React.Component {
       </FormControl>,
       <Button
         onClick={this.handleOnSubmit}
-      >Signin</Button>
+      >
+        Signin
+      </Button>,
     ];
   }
 }
+
+Login.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

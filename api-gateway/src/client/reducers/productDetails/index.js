@@ -15,7 +15,7 @@ const reducer = (state = {}, action) => {
         errorMessage: null,
       };
     default:
-     return state;
+      return state;
   }
 };
 

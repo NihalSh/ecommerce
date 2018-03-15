@@ -25,10 +25,8 @@ const login = (dispatch, username, password) => {
       type: actionTypes.LOGIN,
       payload: err,
       error: true,
-    })
-  })
+    });
+  });
 };
 
-export {
-  login
-};
+export default login;

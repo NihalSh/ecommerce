@@ -18,18 +18,28 @@ const Image = styled.img`
   height: auto;
 `;
 
-const ProductDetails = ({ name='name', image='/650x350.png', desc='text' }) => {
-  return (
-    <div>
-      <section>
-        <PageStyle>
-          <Typography variant="title" component="h1">{name}</Typography>
-          <Image src={image} />
-          <Typography paragraph>{desc}</Typography>
-        </PageStyle>
-      </section>
-    </div>
-  );
+const ProductDetails = ({ name, image, desc }) => (
+  <div>
+    <section>
+      <PageStyle>
+        <Typography variant="title" component="h1">{name}</Typography>
+        <Image src={image} />
+        <Typography paragraph>{desc}</Typography>
+      </PageStyle>
+    </section>
+  </div>
+);
+
+ProductDetails.defaultProps = {
+  name: 'name',
+  image: '',
+  desc: '',
+};
+
+ProductDetails.propTypes = {
+  name: PropTypes.string,
+  image: PropTypes.string,
+  desc: PropTypes.string,
 };
 
 export default ProductDetails;
