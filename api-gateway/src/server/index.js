@@ -34,6 +34,10 @@ app.get('/api/products', (req, res) => {
   req.pipe(stream).pipe(res);
 });
 
+app.get('*', (req, res) => {
+  res.sendFile('./public/index.html', { root: __dirname });
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
