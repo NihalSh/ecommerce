@@ -1,0 +1,48 @@
+version: "3.2"
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+  itemservice:
+    image: nihalsh/ecommerce-item-service
+    ports:
+      - "6767:6767"
+    depends_on:
+      - "mongo"
+    networks:
+      - backend
+
+  orderservice:
+    image: nihalsh/ecommerce-order-service
+    ports:
+      - "4242:4242"
+    depends_on:
+      - "mongo"
+    networks:
+      - backend
+
+  auth-service:
+    image: nihalsh/ecommerce-auth-service
+    ports:
+      - "60000:60000"
+    depends_on:
+      - "mongo"
+    networks:
+      - backend
+
+  account-service:
+    image: nihalsh/ecommerce-account-service
+    ports:
+      - "60001:60001"
+    depends_on:
+      - "mongo"
+    networks:
+      - backend
+
+networks:
+  backend:
