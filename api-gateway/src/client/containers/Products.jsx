@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Products from '../components/Products';
+import addProduct from '../actions/addProduct';
 import getProducts from '../actions/products';
 
 const handleOnMount = dispatch => () => {
   getProducts(dispatch);
+};
+
+const handleAddProduct = dispatch => (formData) => {
+  addProduct(dispatch, formData);
 };
 
 class ProductsContainer extends React.Component {
@@ -14,7 +19,11 @@ class ProductsContainer extends React.Component {
   }
   render() {
     return (this.props.items.length > 0
-      ? <Products items={this.props.items} />
+      ?
+        <Products
+          items={this.props.items}
+          onAddProduct={this.props.onAddProduct}
+        />
       : 'No products found'
     );
   }
@@ -22,6 +31,7 @@ class ProductsContainer extends React.Component {
 
 ProductsContainer.propTypes = {
   items: PropTypes.instanceOf(Array).isRequired,
+  onAddProduct: PropTypes.func.isRequired,
   onMount: PropTypes.func.isRequired,
 };
 
@@ -31,6 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onMount: handleOnMount(dispatch),
+  onAddProduct: handleAddProduct(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

@@ -6,6 +6,7 @@
   "globals": {
     "document": true,
     "fetch": true,
+    "FormData": true,
     "window": true
   }
 }
