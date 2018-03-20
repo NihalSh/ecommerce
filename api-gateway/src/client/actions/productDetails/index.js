@@ -1,6 +1,6 @@
 import actionTypes from '../types';
 
-const getProductDetails = dispatch => (productId) => {
+export const getProductDetails = (dispatch, productId) => {
   fetch(`/api/products/${productId}`)
     .then(response => response.json())
     .then((data) => {
@@ -18,4 +18,25 @@ const getProductDetails = dispatch => (productId) => {
     });
 };
 
-export default getProductDetails;
+export const getBuyingOptions = (dispatch, id) => {
+  fetch('/api/buyingoptions')
+    .then(response => response.json())
+    .then((data) => {
+      const filteredData = data.filter(value => value.item_id === id);
+      const mappedData = filteredData.map(value => (
+        { name: value.seller_id, price: value.price }
+      ));
+      dispatch({
+        type: actionTypes.GET_BUYING_OPTIONS,
+        payload: mappedData,
+        error: false,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: actionTypes.GET_BUYING_OPTIONS,
+        payload: err,
+        error: true,
+      });
+    });
+};

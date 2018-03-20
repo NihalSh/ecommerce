@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import AddProductForm from '../components/AddProductForm';
 import Products from '../components/Products';
 import addProduct from '../actions/addProduct';
 import getProducts from '../actions/products';
@@ -18,13 +19,18 @@ class ProductsContainer extends React.Component {
     this.props.onMount();
   }
   render() {
-    return (this.props.items.length > 0
-      ?
-        <Products
-          items={this.props.items}
-          onAddProduct={this.props.onAddProduct}
-        />
-      : 'No products found'
+    return (
+      <React.Fragment>
+        <AddProductForm onSubmit={this.props.onAddProduct} />
+        {
+          this.props.items.length > 0
+          ?
+            <Products
+              items={this.props.items}
+            />
+          : 'No products found'
+        }
+      </React.Fragment>
     );
   }
 }
