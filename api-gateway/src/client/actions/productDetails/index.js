@@ -40,3 +40,31 @@ export const getBuyingOptions = (dispatch, id) => {
       });
     });
 };
+
+export const addBuyingOptions = (dispatch, body) => {
+  fetch('/api/buyingoptions', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      if (response.ok) {
+        dispatch({
+          type: actionTypes.ADD_BUYING_OPTIONS,
+          error: false,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.ADD_BUYING_OPTIONS,
+          error: true,
+          payload: new RangeError('response not OK'),
+        });
+      }
+    })
+    .catch((err) => {
+      dispatch({
+        type: actionTypes.ADD_BUYING_OPTIONS,
+        payload: err,
+        error: true,
+      });
+    });
+};

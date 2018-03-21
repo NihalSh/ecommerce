@@ -71,6 +71,16 @@ app.get('/api/buyingoptions', (req, res) => {
   req.pipe(stream).pipe(res);
 });
 
+app.post('/api/buyingoptions', (req, res) => {
+  const method = req.method.toLowerCase();
+  const stream = request[method]('http://127.0.0.1:4242/buyingoptions');
+  stream.on('error', function handleError(err) {
+    console.log(err);
+    this.emit('end');
+  });
+  req.pipe(stream).pipe(res);
+});
+
 app.get('*', (req, res) => {
   res.sendFile('./public/index.html', { root: __dirname });
 });
