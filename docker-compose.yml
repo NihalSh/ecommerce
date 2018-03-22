@@ -43,6 +43,12 @@ services:
       - "mongo"
     networks:
       - backend
+  api:
+    image: nihalsh/ecommerce-api-gateway
+    ports:
+      - "80:3000"
+    networks:
+      - backend
 
 networks:
   backend:

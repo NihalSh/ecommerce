@@ -8,11 +8,28 @@ const staticPath = '/static';
 const upload = multer({ dest: path.join(publicPath, staticPath) });
 const app = express();
 
+let servicesUrl = null;
+if (process.env.NODE_ENV === 'production') {
+  servicesUrl = {
+    account: 'account-service:60001',
+    auth: 'auth-service:60000',
+    item: 'itemservice:6767',
+    order: 'orderservice:4242',
+  };
+} else {
+  servicesUrl = {
+    account: '127.0.0.1:60001',
+    auth: '127.0.0.1:60000',
+    item: '127.0.0.1:6767',
+    order: '127.0.0.1:4242',
+  };
+}
+
 app.use(express.static(publicPath));
 
 app.post('/api/auth', (req, res) => {
   const method = req.method.toLowerCase();
-  const stream = request[method]('http://127.0.0.1:60000/auth');
+  const stream = request[method](`http://${servicesUrl.auth}/auth`);
   stream.on('error', function handleError(err) {
     console.log(err);
     this.emit('end');
@@ -22,7 +39,7 @@ app.post('/api/auth', (req, res) => {
 
 app.get('/api/products/:id', (req, res) => {
   const method = req.method.toLowerCase();
-  const url = `http://127.0.0.1:6767/items/${req.params.id}`;
+  const url = `http://${servicesUrl.item}/items/${req.params.id}`;
   const stream = request[method](url);
   stream.on('error', function handleError(err) {
     console.log(err);
@@ -33,7 +50,7 @@ app.get('/api/products/:id', (req, res) => {
 
 app.get('/api/products', (req, res) => {
   const method = req.method.toLowerCase();
-  const stream = request[method]('http://127.0.0.1:6767/items');
+  const stream = request[method](`http://${servicesUrl.item}/items`);
   stream.on('error', function handleError(err) {
     console.log(err);
     this.emit('end');
@@ -50,7 +67,7 @@ app.post('/api/products', upload.single('image'), (req, res) => {
   const requestBody = Object.assign({}, req.body, { image: url });
   const options = {
     method,
-    url: 'http://127.0.0.1:6767/items',
+    url: `http://${servicesUrl.item}/items`,
     json: requestBody,
   };
   const stream = request(options);
@@ -63,7 +80,7 @@ app.post('/api/products', upload.single('image'), (req, res) => {
 
 app.get('/api/buyingoptions', (req, res) => {
   const method = req.method.toLowerCase();
-  const stream = request[method]('http://127.0.0.1:4242/buyingoptions');
+  const stream = request[method](`http://${servicesUrl.order}/buyingoptions`);
   stream.on('error', function handleError(err) {
     console.log(err);
     this.emit('end');
@@ -73,7 +90,7 @@ app.get('/api/buyingoptions', (req, res) => {
 
 app.post('/api/buyingoptions', (req, res) => {
   const method = req.method.toLowerCase();
-  const stream = request[method]('http://127.0.0.1:4242/buyingoptions');
+  const stream = request[method](`http://${servicesUrl.order}/buyingoptions`);
   stream.on('error', function handleError(err) {
     console.log(err);
     this.emit('end');
@@ -83,7 +100,7 @@ app.post('/api/buyingoptions', (req, res) => {
 
 app.get('/api/account/:id', (req, res) => {
   const method = req.method.toLowerCase();
-  const url = `http://127.0.0.1:60001/account/${req.params.id}`;
+  const url = `http://${servicesUrl.account}/account/${req.params.id}`;
   const stream = request[method](url);
   stream.on('error', function handleError(err) {
     console.log(err);
