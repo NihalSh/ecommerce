@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "import/no-extraneous-dependencies": 0
+  },
+  "globals": {
+    "document": true,
+    "fetch": true,
+    "FormData": true,
+    "window": true
+  }
+}
