@@ -16,7 +16,10 @@ const reducer = (previousState = { roles: [] }, action) => {
         error: false,
         errorMessage: null,
       };
-
+    case actionTypes.LOGOUT:
+      return {
+        roles: [],
+      };
     default:
       return previousState;
   }
