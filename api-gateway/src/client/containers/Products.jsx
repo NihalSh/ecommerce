@@ -21,7 +21,11 @@ class ProductsContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <AddProductForm onSubmit={this.props.onAddProduct} />
+        {
+          this.props.isSeller
+            ? <AddProductForm onSubmit={this.props.onAddProduct} />
+            : null
+        }
         {
           this.props.items.length > 0
           ?
@@ -36,12 +40,14 @@ class ProductsContainer extends React.Component {
 }
 
 ProductsContainer.propTypes = {
+  isSeller: PropTypes.bool.isRequired,
   items: PropTypes.instanceOf(Array).isRequired,
   onAddProduct: PropTypes.func.isRequired,
   onMount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isSeller: state.account.roles.includes('seller'),
   items: state.products.data,
 });
 

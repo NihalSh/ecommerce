@@ -81,6 +81,17 @@ app.post('/api/buyingoptions', (req, res) => {
   req.pipe(stream).pipe(res);
 });
 
+app.get('/api/account/:id', (req, res) => {
+  const method = req.method.toLowerCase();
+  const url = `http://127.0.0.1:60001/account/${req.params.id}`;
+  const stream = request[method](url);
+  stream.on('error', function handleError(err) {
+    console.log(err);
+    this.emit('end');
+  });
+  req.pipe(stream).pipe(res);
+});
+
 app.get('*', (req, res) => {
   res.sendFile('./public/index.html', { root: __dirname });
 });

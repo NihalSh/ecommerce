@@ -25,7 +25,11 @@ class PurchaseOptionsContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <AddBuyingOption onSubmit={this.handleSubmit} />
+        {
+          this.props.isSeller
+            ? <AddBuyingOption onSubmit={this.handleSubmit} />
+            : null
+        }
         {
           this.props.data.length > 0
             ?
@@ -51,6 +55,7 @@ PurchaseOptionsContainer.propTypes = {
     price: PropTypes.number.isRequired,
   })),
   id: PropTypes.string.isRequired,
+  isSeller: PropTypes.bool.isRequired,
   onAddBuyingOption: PropTypes.func.isRequired,
   onMount: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
@@ -66,6 +71,7 @@ const handleMount = dispatch => (id) => {
 
 const mapStateToProps = state => ({
   data: state.productDetails.buyingOptions.data,
+  isSeller: state.account.roles.includes('seller'),
   user: state.user.id,
 });
 
