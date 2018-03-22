@@ -5,10 +5,25 @@ const mongoose = require('mongoose');
 const { mongodb: { uri: connectionUri } } = require('../config');
 
 const app = express();
-mongoose.connect(connectionUri);
+
+mongoose.connection.on('error', (err) => {
+  if (err) {
+    throw err;
+    process.exit(1);
+  }
+});
+
+mongoose.connect(connectionUri, { useMongoClient: true }, (err) => {
+  if (err) {
+    throw err;
+    console.error('ahsdf', err);
+    process.exit(1);
+  }
+  require('./mockAccounts')();
+});
+
 mongoose.Promise = global.Promise;
 
-require('./mockAccounts')();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
